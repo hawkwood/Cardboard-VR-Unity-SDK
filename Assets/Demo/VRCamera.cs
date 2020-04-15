@@ -12,7 +12,6 @@ namespace MobfishCardboardDemo
     public class VRCamera: MonoBehaviour
     {
         [Header("Cameras")]
-        public Camera centerCam;
         public Camera leftCam;
         public Camera rightCam;
 
@@ -22,13 +21,12 @@ namespace MobfishCardboardDemo
         public GameObject continuePanel;
 
         [Header("Other")]
-        public Text debugText;
         public MeshFilter testEyeMeshLeft;
         public MeshFilter testEyeMeshRight;
 
         private RenderTextureDescriptor eyeRenderTextureDesc;
         private RenderTexture centerRenderTexture;
-        private bool needUpdateProfile;
+        // private bool needUpdateProfile;
 
         private void Awake()
         {
@@ -44,8 +42,6 @@ namespace MobfishCardboardDemo
         // Start is called before the first frame update
         void Start()
         {
-            CardboardHeadTracker.CreateTracker();
-            CardboardHeadTracker.ResumeTracker();
             CardboardDistortionRenderer.InitDestortionRenderer();
 
             ResetProfile();
@@ -86,7 +82,7 @@ namespace MobfishCardboardDemo
             CardboardLensDistortion.CreateLensDistortion(par.Item1, par.Item2);
             RefreshCamera();
 
-            needUpdateProfile = false;
+            // needUpdateProfile = false;
 
             (byte[], int) paramDetailVar = CardboardQrCode.GetDeviceParamsByte();
             NativeDataExtract.Save_EncodedParam(paramDetailVar.Item1, paramDetailVar.Item2);
@@ -138,15 +134,6 @@ namespace MobfishCardboardDemo
             NativeDataExtract.Save_MeshJson(eyeMeshes.Item2);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            CardboardHeadTracker.UpdatePoseGyro();
-            if (!Application.isEditor)
-                transform.localRotation = CardboardHeadTracker.trackerUnityRotation;
-            Update_DebugInfo();
-        }
-
         private void OnApplicationFocus(bool hasFocus)
         {
             Debug.Log("OnApplicationFocus called, hasFocus=" + hasFocus);
@@ -157,17 +144,10 @@ namespace MobfishCardboardDemo
             Debug.Log("OnApplicationPause called, pauseStatus=" + pauseStatus);
         }
 
-        void Update_DebugInfo()
-        {
-            debugText.text = string.Format("device rot={0}, \r\nUnity rot={1}",
-                CardboardHeadTracker.trackerRawRotation.eulerAngles,
-                CardboardHeadTracker.trackerUnityRotation.eulerAngles);
-        }
-
         private void ScanQRCode()
         {
             CardboardQrCode.StartScanQrCode();
-            needUpdateProfile = true;
+            // needUpdateProfile = true;
             continuePanel.SetActive(true);
         }
     }
