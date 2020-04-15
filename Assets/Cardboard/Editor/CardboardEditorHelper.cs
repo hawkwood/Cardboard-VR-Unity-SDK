@@ -30,7 +30,7 @@ namespace MobfishCardboard.UEditor
             proj.ReadFromFile(projPath);
 
             // This is the Xcode target in the generated project
-            string target = proj.TargetGuidByName("Unity-iPhone");
+            string target = proj.GetUnityMainTargetGuid(); // TargetGuidByName("Unity-iPhone");
 
 
             // If building with the non-bitcode version of the plugin, these lines should be uncommented.
