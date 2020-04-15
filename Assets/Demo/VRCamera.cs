@@ -5,6 +5,7 @@ using System.Text;
 using MobfishCardboard;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 
 namespace MobfishCardboardDemo
@@ -57,7 +58,7 @@ namespace MobfishCardboardDemo
                 depthBufferBits = 16,
                 volumeDepth = 1,
                 msaaSamples = 2,
-                graphicsFormat = UnityEngine.Experimental.Rendering.GraphicsFormat.RGBA_ETC2_SRGB,
+                graphicsFormat = SystemInfo.GetCompatibleFormat(GraphicsFormat.RGBA_ETC2_SRGB, FormatUsage.Render),
             };
 
             RenderTexture newLeft = new RenderTexture(eyeRenderTextureDesc);
