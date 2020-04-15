@@ -61,6 +61,7 @@ namespace MobfishCardboardDemo
                 depthBufferBits = 16,
                 volumeDepth = 1,
                 msaaSamples = 2,
+                graphicsFormat = UnityEngine.Experimental.Rendering.GraphicsFormat.RGBA_ETC2_SRGB,
             };
 
             RenderTexture newLeft = new RenderTexture(eyeRenderTextureDesc);
