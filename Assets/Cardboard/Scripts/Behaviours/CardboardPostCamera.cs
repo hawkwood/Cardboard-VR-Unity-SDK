@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace MobfishCardboard
 {
@@ -20,15 +21,53 @@ namespace MobfishCardboard
             postCam.projectionMatrix = Matrix4x4.Ortho(-1, 1, -1, 1, -0.1f, 0.5f);
         }
 
-        // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
             ApplyRenderTexture();
             CardboardManager.renderTextureResetEvent += ApplyRenderTexture;
+
+            if (GraphicsSettings.renderPipelineAsset != null)
+            {
+#if UNITY_2019_1_OR_NEWER
+                RenderPipelineManager.endCameraRendering += OnSrpCameraPostRender;
+#endif
+            }
+            else
+            {
+                Camera.onPostRender += OnCameraPostRender;
+            }
         }
 
-        private void OnPostRender()
+        private void OnDisable()
         {
+            CardboardManager.renderTextureResetEvent -= ApplyRenderTexture;
+
+            if (GraphicsSettings.renderPipelineAsset != null)
+            {
+#if UNITY_2019_1_OR_NEWER
+                RenderPipelineManager.endCameraRendering -= OnSrpCameraPostRender;
+#endif
+            }
+            else
+            {
+                Camera.onPostRender -= OnCameraPostRender;
+            }
+        }
+
+        private void OnCameraPostRender(Camera cam)
+        {
+            TryDraw();
+        }
+
+#if UNITY_2019_1_OR_NEWER
+        protected virtual void OnSrpCameraPostRender(ScriptableRenderContext context, Camera givenCamera)
+        {
+            TryDraw();
+        }
+#endif
+
+        private void TryDraw()
+        { 
             if (!CardboardManager.profileAvailable)
                 return;
 
