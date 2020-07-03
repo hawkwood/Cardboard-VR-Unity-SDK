@@ -568,13 +568,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8654298323194608245, guid: a2df4c6030d6a4937a405a8a2de8396d,
-        type: 3}
-      propertyPath: defaultEnableVRView
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3332269238625327218, guid: a2df4c6030d6a4937a405a8a2de8396d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2df4c6030d6a4937a405a8a2de8396d, type: 3}
 --- !u!1 &539435480
 GameObject:
@@ -675,25 +669,6 @@ MeshFilter:
     type: 3}
   m_PrefabInstance: {fileID: 6572400262648069659}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &789091452 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7453031859748572992, guid: a2df4c6030d6a4937a405a8a2de8396d,
-    type: 3}
-  m_PrefabInstance: {fileID: 487078358}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &789091453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 789091452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb9777efa8174381b01d319232f7df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TargetFrameRate: 60
 --- !u!1 &931747056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 216.44}
+  m_AnchoredPosition: {x: 0, y: 216.44043}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1809653109
@@ -1307,7 +1282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 109.18}
+  m_AnchoredPosition: {x: 0, y: 109.180664}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2100014117

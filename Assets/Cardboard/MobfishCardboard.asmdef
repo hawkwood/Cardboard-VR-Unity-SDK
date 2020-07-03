@@ -2,6 +2,7 @@
     "name": "MobfishCardboard",
     "references": [],
     "includePlatforms": [
+        "Android",
         "Editor",
         "iOS"
     ],
