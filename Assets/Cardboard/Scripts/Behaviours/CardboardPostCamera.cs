@@ -13,12 +13,23 @@ namespace MobfishCardboard
         [SerializeField]
         private Material eyeMaterialRight;
 
+        private bool srpInUse;
         private Camera postCam;
 
         private void Awake()
         {
             postCam = GetComponent<Camera>();
             postCam.projectionMatrix = Matrix4x4.Ortho(-1, 1, -1, 1, -0.1f, 0.5f);
+            srpInUse = GraphicsSettings.renderPipelineAsset != null;
+        }
+
+        private void Start()
+        {
+            if (srpInUse)
+            {
+                Debug.Log("CardboardPostCamera, current RenderPipeline = " +
+                    GraphicsSettings.renderPipelineAsset?.GetType().ToString());
+            }
         }
 
         private void OnEnable()
@@ -26,11 +37,11 @@ namespace MobfishCardboard
             ApplyRenderTexture();
             CardboardManager.renderTextureResetEvent += ApplyRenderTexture;
 
-            if (GraphicsSettings.renderPipelineAsset != null)
+            if (srpInUse)
             {
-#if UNITY_2019_1_OR_NEWER
+                #if UNITY_2019_1_OR_NEWER
                 RenderPipelineManager.endCameraRendering += OnSrpCameraPostRender;
-#endif
+                #endif
             }
             else
             {
@@ -42,11 +53,11 @@ namespace MobfishCardboard
         {
             CardboardManager.renderTextureResetEvent -= ApplyRenderTexture;
 
-            if (GraphicsSettings.renderPipelineAsset != null)
+            if (srpInUse)
             {
-#if UNITY_2019_1_OR_NEWER
+                #if UNITY_2019_1_OR_NEWER
                 RenderPipelineManager.endCameraRendering -= OnSrpCameraPostRender;
-#endif
+                #endif
             }
             else
             {
@@ -54,20 +65,20 @@ namespace MobfishCardboard
             }
         }
 
+        #if UNITY_2019_1_OR_NEWER
+        private void OnSrpCameraPostRender(ScriptableRenderContext context, Camera givenCamera)
+        {
+            PostEyeRender();
+        }
+        #endif
+
         private void OnCameraPostRender(Camera cam)
         {
-            TryDraw();
+            PostEyeRender();
         }
 
-#if UNITY_2019_1_OR_NEWER
-        protected virtual void OnSrpCameraPostRender(ScriptableRenderContext context, Camera givenCamera)
+        private void PostEyeRender()
         {
-            TryDraw();
-        }
-#endif
-
-        private void TryDraw()
-        { 
             if (!CardboardManager.profileAvailable)
                 return;
 

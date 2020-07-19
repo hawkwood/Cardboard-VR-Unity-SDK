@@ -1,6 +1,8 @@
 {
     "name": "MobfishCardboard",
-    "references": [],
+    "references": [
+        "Unity.InputSystem"
+    ],
     "includePlatforms": [
         "Android",
         "Editor",
